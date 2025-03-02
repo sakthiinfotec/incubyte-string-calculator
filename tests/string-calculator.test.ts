@@ -21,4 +21,9 @@ describe("String Calculator", () => {
     const result = calculator.add("1,2,3,4,5,6,7,8,9,10");
     expect(result).toBe(55);
   });
+  it("should return 6 when '1\n2,3' passed (combination of \n and ,)", () => {
+    const calculator = new StringCalculator();
+    const result = calculator.add("1\n2,3");
+    expect(result).toBe(6);
+  });
 });
