@@ -26,4 +26,9 @@ describe("String Calculator", () => {
     const result = calculator.add("1\n2,3");
     expect(result).toBe(6);
   });
+  it("should return 3 when '//;\n1;2' passed + default delimiter is ';'", () => {
+    const calculator = new StringCalculator();
+    const result = calculator.add("//;\n1;2");
+    expect(result).toBe(3);
+  });
 });
