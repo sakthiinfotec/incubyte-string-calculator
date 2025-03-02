@@ -11,4 +11,9 @@ describe("String Calculator", () => {
     const result = calculator.add("1");
     expect(result).toBe(1);
   });
+  it("should return 6 when '1,5' passed", () => {
+    const calculator = new StringCalculator();
+    const result = calculator.add("1,5");
+    expect(result).toBe(6);
+  });
 });
