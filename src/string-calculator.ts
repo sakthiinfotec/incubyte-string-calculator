@@ -12,6 +12,8 @@ export class StringCalculator {
   add(numbers: string): number {
     if (numbers === "") {
       return 0;
+    } else if (parseInt(numbers) < 0) {
+      throw new Error(`Negative numbers not allowed ${numbers}`);
     }
 
     let delimiter = ";";
