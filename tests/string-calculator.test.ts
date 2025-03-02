@@ -50,4 +50,11 @@ describe("String Calculator", () => {
     const expected = 10;
     expect(result).toBe(expected);
   });
+  it("delimiters can be of any length with the following format: '//[delimiter]\n' for example: '//[***]\n1***2***3' should return 6", () => {
+    const calculator = new StringCalculator();
+    const numbers = "//[***]\n1***2***3";
+    const result = calculator.add(numbers);
+    const expected = 6;
+    expect(result).toBe(expected);
+  });
 });
