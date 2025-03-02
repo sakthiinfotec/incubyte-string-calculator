@@ -5,6 +5,20 @@ import {parse} from "path";
  */
 export class StringCalculator {
   /**
+   * Calculate sum of numbers
+   * @param numbers - String of numbers separated by delimiters
+   * @param delimiter - Delimiter to split numbers
+   * @returns Sum of numbers
+   */
+  private calculateSum(numbers: string, delimiter: string): number {
+    return numbers
+      .split(delimiter)
+      .map((num) => parseInt(num))
+      .filter((num) => num <= 1000)
+      .reduce((sum, num) => sum + num, 0);
+  }
+
+  /**
    * Add method
    * @param numbers - String of numbers separated by delimiters
    * @returns Sum of numbers
@@ -18,14 +32,13 @@ export class StringCalculator {
 
     let delimiter = ";";
     if (numbers.includes("//")) {
-      const parts = numbers.split("\n");
-      delimiter = parts[0].replace("//", "");
-      const numbersPart = parts[1];
-      return numbersPart.split(delimiter).reduce((sum, num) => sum + parseInt(num), 0);
+      const [delimiterPart, numbersPart] = numbers.split("\n");
+      delimiter = delimiterPart.replace("//", "");
+      return this.calculateSum(numbersPart, delimiter);
     }
 
     const regEx = new RegExp("\n|,", "g");
     numbers = numbers.replace(regEx, delimiter);
-    return numbers.split(delimiter).reduce((sum, num) => sum + parseInt(num), 0);
+    return this.calculateSum(numbers, delimiter);
   }
 }
