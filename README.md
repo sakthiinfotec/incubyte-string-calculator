@@ -44,17 +44,11 @@ Edit `tsconfig.json` to include the following settings:
 **Step 4: Configure Jest**  
 Create a `jest.config.js` file to configure Jest for TypeScript:
 ```javascript
+/** @type {import('ts-jest').JestConfigWithTsJest} **/
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  testMatch: ['**/?(*.)+(spec|test).ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
+  testEnvironment: "node",
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    "^.+\.tsx?$": ["ts-jest",{}],
   },
 };
 ```
