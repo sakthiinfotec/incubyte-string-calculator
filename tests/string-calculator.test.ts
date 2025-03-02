@@ -43,4 +43,11 @@ describe("String Calculator", () => {
     const expected = `Negative numbers not allowed ${numbers}`;
     expect(() => calculator.add(numbers)).toThrow(expected);
   });
+  it("numbers bigger than 1000 should be ignored", () => {
+    const calculator = new StringCalculator();
+    const numbers = "1,2,3,1001,4";
+    const result = calculator.add(numbers);
+    const expected = 10;
+    expect(result).toBe(expected);
+  });
 });
