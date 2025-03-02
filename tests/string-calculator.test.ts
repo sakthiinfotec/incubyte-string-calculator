@@ -6,4 +6,9 @@ describe("String Calculator", () => {
     const result = calculator.add("");
     expect(result).toBe(0);
   });
+  it("should return 1 when '1' passed", () => {
+    const calculator = new StringCalculator();
+    const result = calculator.add("1");
+    expect(result).toBe(1);
+  });
 });
