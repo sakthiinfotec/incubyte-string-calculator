@@ -13,11 +13,17 @@ export class StringCalculator {
     if (numbers === "") {
       return 0;
     }
-    // Replace new line with comma
-    numbers = numbers.replace("\n", ",");
-    if (numbers.includes(",")) {
-      return numbers.split(",").reduce((sum, num) => sum + parseInt(num), 0);
+
+    let delimiter = ";";
+    if (numbers.includes("//")) {
+      const parts = numbers.split("\n");
+      delimiter = parts[0].replace("//", "");
+      const numbersPart = parts[1];
+      return numbersPart.split(delimiter).reduce((sum, num) => sum + parseInt(num), 0);
     }
-    return parseInt(numbers);
+
+    const regEx = new RegExp("\n|,", "g");
+    numbers = numbers.replace(regEx, delimiter);
+    return numbers.split(delimiter).reduce((sum, num) => sum + parseInt(num), 0);
   }
 }
