@@ -10,7 +10,9 @@ export class StringCalculator {
    * @param delimiter - Delimiter to split numbers
    * @returns Sum of numbers
    */
-  private calculateSum(numbers: string, delimiter: string): number {
+  private calculateSum(numbers: string, delimiters: string[]): number {
+    // Form following regular expression: ["\n", ","] => /[\n,]/ or ["*", "%"] => /[*%]/
+    const delimiter = new RegExp(`[${delimiters.join("")}]`);
     return numbers
       .split(delimiter)
       .map((num) => parseInt(num))
@@ -30,22 +32,24 @@ export class StringCalculator {
       throw new Error(`Negative numbers not allowed ${numbers}`);
     }
 
-    let delimiter = ";";
+    let delimiters = ["\n", ","];
     if (numbers.includes("//")) {
       const [delimiterPart, numbersPart] = numbers.split("\n");
-      // To match the delimiter in square bracket
-      const regex = /\[([^\]]+)\]/;
-      const match = delimiterPart.match(regex);
-      if (match) {
-        delimiter = match[1];
+      // To match the delimiter in more than one square brackets
+      const regex = /\[([^\]]+)\]/g;
+
+      // Use matchAll to find all occurrences
+      const matches = [...delimiterPart.matchAll(regex)];
+      if (matches.length > 0) {
+        // Extract the delimiters of each match
+        delimiters = matches.map((match) => match[1]);
       } else {
-        delimiter = delimiterPart.replace("//", "");
+        const delimiter = delimiterPart.replace("//", "");
+        delimiters = [delimiter];
       }
-      return this.calculateSum(numbersPart, delimiter);
+      numbers = numbersPart;
     }
 
-    const regex = /\n|,/g;
-    numbers = numbers.replace(regex, delimiter);
-    return this.calculateSum(numbers, delimiter);
+    return this.calculateSum(numbers, delimiters);
   }
 }
