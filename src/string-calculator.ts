@@ -7,14 +7,15 @@ export class StringCalculator {
   /**
    * Calculate sum of numbers
    * @param numbers - String of numbers separated by delimiters
-   * @param delimiter - Delimiter to split numbers
+   * @param delimiters - Array of delimiters to split numbers
    * @returns Sum of numbers
    */
   private calculateSum(numbers: string, delimiters: string[]): number {
-    // Form following regular expression: ["\n", ","] => /[\n,]/ or ["*", "%"] => /[*%]/
-    const delimiter = new RegExp(`[${delimiters.join("")}]`);
+    // Form following regular expression:
+    // ["\n", ","] => /[\n|,]/ or ["*", "%"] => /[*|%]/ or ["***", "%%%"] => /[***|**%]/
+    const delimiterRegex = new RegExp(`[${delimiters.join("|")}]`, "g");
     return numbers
-      .split(delimiter)
+      .split(delimiterRegex)
       .map((num) => parseInt(num))
       .filter((num) => num <= 1000)
       .reduce((sum, num) => sum + num, 0);
@@ -35,11 +36,12 @@ export class StringCalculator {
     let delimiters = ["\n", ","];
     if (numbers.includes("//")) {
       const [delimiterPart, numbersPart] = numbers.split("\n");
-      // To match the delimiter in more than one square brackets
+      // To match more than one occurrence of delimiters surrounded by the square brackets
       const regex = /\[([^\]]+)\]/g;
 
       // Use matchAll to find all occurrences
       const matches = [...delimiterPart.matchAll(regex)];
+
       if (matches.length > 0) {
         // Extract the delimiters of each match
         delimiters = matches.map((match) => match[1]);
