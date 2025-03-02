@@ -13,6 +13,8 @@ export class StringCalculator {
     if (numbers === "") {
       return 0;
     }
+    // Replace new line with comma
+    numbers = numbers.replace("\n", ",");
     if (numbers.includes(",")) {
       return numbers.split(",").reduce((sum, num) => sum + parseInt(num), 0);
     }
