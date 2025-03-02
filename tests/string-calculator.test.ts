@@ -57,4 +57,11 @@ describe("String Calculator", () => {
     const expected = 6;
     expect(result).toBe(expected);
   });
+  it("allow multiple delimiters like this: '//[delim1][delim2]\n' for example '//[*][%]\n1*2%3' should return 6", () => {
+    const calculator = new StringCalculator();
+    const numbers = "//[*][%]\n1*2%3";
+    const result = calculator.add(numbers);
+    const expected = 6;
+    expect(result).toBe(expected);
+  });
 });
