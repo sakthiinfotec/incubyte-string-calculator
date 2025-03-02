@@ -33,12 +33,19 @@ export class StringCalculator {
     let delimiter = ";";
     if (numbers.includes("//")) {
       const [delimiterPart, numbersPart] = numbers.split("\n");
-      delimiter = delimiterPart.replace("//", "");
+      // To match the delimiter in square bracket
+      const regex = /\[([^\]]+)\]/;
+      const match = delimiterPart.match(regex);
+      if (match) {
+        delimiter = match[1];
+      } else {
+        delimiter = delimiterPart.replace("//", "");
+      }
       return this.calculateSum(numbersPart, delimiter);
     }
 
-    const regEx = new RegExp("\n|,", "g");
-    numbers = numbers.replace(regEx, delimiter);
+    const regex = /\n|,/g;
+    numbers = numbers.replace(regex, delimiter);
     return this.calculateSum(numbers, delimiter);
   }
 }
