@@ -1,5 +1,3 @@
-import {parse} from "path";
-
 /**
  * StringCalculator class
  */
@@ -12,7 +10,7 @@ export class StringCalculator {
    */
   private calculateSum(numbers: string, delimiters: string[]): number {
     // Form following regular expression:
-    // ["\n", ","] => /[\n|,]/ or ["*", "%"] => /[*|%]/ or ["***", "%%%"] => /[***|**%]/
+    // ["\n", ","] => /[\n|,]/g or ["*", "%"] => /[*|%]/g or ["***", "%%%"] => /[***|**%]/g
     const delimiterRegex = new RegExp(`[${delimiters.join("|")}]`, "g");
     return numbers
       .split(delimiterRegex)
