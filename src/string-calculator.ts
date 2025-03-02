@@ -1,3 +1,5 @@
+import {parse} from "path";
+
 /**
  * StringCalculator class
  */
@@ -11,6 +13,6 @@ export class StringCalculator {
     if (numbers === "") {
       return 0;
     }
-    return 0;
+    return parseInt(numbers);
   }
 }
