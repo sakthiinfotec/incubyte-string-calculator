@@ -14,11 +14,13 @@ export class StringCalculator {
     const delimiterRegex = new RegExp(`[${delimiters.join("|")}]`, "g");
     const validNumbers = [];
     const inValidNumbers = [];
-    console.log(numbers.split(delimiterRegex));
+    const negativeNumbers = [];
     for (const num of numbers.split(delimiterRegex).filter((item) => item.length > 0)) {
       const number = parseInt(num);
       if (isNaN(number)) {
         inValidNumbers.push(num);
+      } else if (number < 0) {
+        negativeNumbers.push(num);
       } else {
         validNumbers.push(number);
       }
@@ -26,6 +28,10 @@ export class StringCalculator {
 
     if (inValidNumbers.length > 0) {
       throw new Error(`Invalid numbers ${inValidNumbers.join(", ")}`);
+    }
+
+    if (negativeNumbers.length > 0) {
+      throw new Error(`Negative numbers not allowed ${negativeNumbers.join(", ")}`);
     }
 
     return validNumbers.filter((num) => num <= 1000).reduce((sum, num) => sum + num, 0);
