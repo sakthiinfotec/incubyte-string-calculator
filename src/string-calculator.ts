@@ -12,11 +12,23 @@ export class StringCalculator {
     // Form following regular expression:
     // ["\n", ","] => /[\n|,]/g or ["*", "%"] => /[*|%]/g or ["***", "%%%"] => /[***|**%]/g
     const delimiterRegex = new RegExp(`[${delimiters.join("|")}]`, "g");
-    return numbers
-      .split(delimiterRegex)
-      .map((num) => parseInt(num))
-      .filter((num) => num <= 1000)
-      .reduce((sum, num) => sum + num, 0);
+    const validNumbers = [];
+    const inValidNumbers = [];
+    console.log(numbers.split(delimiterRegex));
+    for (const num of numbers.split(delimiterRegex).filter((item) => item.length > 0)) {
+      const number = parseInt(num);
+      if (isNaN(number)) {
+        inValidNumbers.push(num);
+      } else {
+        validNumbers.push(number);
+      }
+    }
+
+    if (inValidNumbers.length > 0) {
+      throw new Error(`Invalid numbers ${inValidNumbers.join(", ")}`);
+    }
+
+    return validNumbers.filter((num) => num <= 1000).reduce((sum, num) => sum + num, 0);
   }
 
   /**
