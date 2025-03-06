@@ -78,4 +78,10 @@ describe("String Calculator", () => {
     const expected = 15;
     expect(result).toBe(expected);
   });
+  it("input '1,3,a,5,b' should return 'Invalid numbers a, b'", () => {
+    const calculator = new StringCalculator();
+    const numbers = "1,3,a,5,b";
+    const expected = "Invalid numbers a, b";
+    expect(() => calculator.add(numbers)).toThrow(expected);
+  });
 });
