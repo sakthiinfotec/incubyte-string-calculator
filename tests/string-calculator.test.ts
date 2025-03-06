@@ -37,10 +37,11 @@ describe("String Calculator", () => {
     const expected = 3;
     expect(result).toBe(expected);
   });
-  it("should throw 'Negative numbers not allowed -2'", () => {
+  it("should throw 'Negative numbers not allowed -2, -3, -4'", () => {
     const calculator = new StringCalculator();
-    const numbers = "-2";
-    const expected = `Negative numbers not allowed ${numbers}`;
+    const numbers = "1,-2,-3,-4,5";
+    const output = "-2, -3, -4";
+    const expected = `Negative numbers not allowed ${output}`;
     expect(() => calculator.add(numbers)).toThrow(expected);
   });
   it("numbers bigger than 1000 should be ignored", () => {
